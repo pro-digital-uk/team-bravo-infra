@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+
+# The app tier has no internet by default, so this script needs no downloads.
+echo "app tier - ${environment}" > /opt/tier.txt
