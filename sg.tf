@@ -10,7 +10,7 @@ resource "aws_security_group" "web" {
     cidr_blocks = var.ssh_cidr_blocks
   }
 
-    ingress {
+  ingress {
     description = "HTTP"
     from_port   = 80
     to_port     = 80

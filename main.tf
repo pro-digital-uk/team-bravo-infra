@@ -37,7 +37,7 @@ module "s3_assets" {
 # ---------------------------------------------------------------------------
 # Web tier: Nginx in a public subnet
 # ---------------------------------------------------------------------------
-module "web" {
+module "ec2_web" {
   source = "git::https://github.com/pro-digital-uk/aws-ec2-module.git"
 
   name                        = "${local.name}-web"
@@ -53,7 +53,7 @@ module "web" {
 # ---------------------------------------------------------------------------
 # App tier: private subnet, no public IP
 # ---------------------------------------------------------------------------
-module "app" {
+module "ec2_app" {
   # source = "../../modules/ec2"
 
   source = "git::https://github.com/pro-digital-uk/aws-ec2-module.git"
@@ -70,7 +70,7 @@ module "app" {
 # ---------------------------------------------------------------------------
 # Jenkins: CI/CD server in public subnet
 # ---------------------------------------------------------------------------
-module "jenkins" {
+module "ec2_jenkins" {
   source = "git::https://github.com/pro-digital-uk/aws-ec2-module.git"
 
   name                        = "${local.name}-jenkins"
