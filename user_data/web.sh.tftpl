@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+dnf install -y nginx
+
+cat > /usr/share/nginx/html/index.html <<'HTML'
+<!doctype html>
+<html>
+  <body style="font-family: sans-serif">
+    <h1>Web tier</h1>
+    <p>Environment: ${environment}</p>
+    <p>Served by Nginx on Amazon Linux 2023.</p>
+  </body>
+</html>
+HTML
+
+systemctl enable --now nginx
