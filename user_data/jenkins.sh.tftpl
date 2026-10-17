@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+# Update system packages
+dnf update -y
+dnf install -y java-17-amazon-corretto java-17-amazon-corretto-devel
+
+# Install Jenkins
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+dnf install -y jenkins
+
+# Start Jenkins
+systemctl enable --now jenkins
+
+# Create a marker file
+echo "Jenkins deployed - ${environment}" > /opt/jenkins-status.txt
