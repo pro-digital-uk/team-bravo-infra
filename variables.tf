@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "Project name, used as a prefix for resource names and tagging."
   type        = string
-  default     = "mupando"
+  default     = "Supando"
 }
 
 variable "environment_name" {
