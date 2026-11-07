@@ -15,7 +15,6 @@ locals {
 module "vpc" {
   #source = "../../modules/vpc"
   #source              = "github.com/cloud-skills-uk/aws-terraform-modules//vpc"
-  #source              = "git@github.com:pro-digital-uk/aws-terraform-modules//vpc"
   #source = "git::https://github.com/pro-digital-uk/aws-terraform-modules.git//vpc"
   source = "git::https://github.com/pro-digital-uk/aws-vpc-module.git"
   name                = local.name
