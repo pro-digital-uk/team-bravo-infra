@@ -5,9 +5,9 @@ locals {
   github_oidc_url          = "token.actions.githubusercontent.com"
   github_oidc_provider_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${local.github_oidc_url}"
   github_repo              = "pro-digital-uk/team-bravo-infra"
-  # GitHub's OIDC provider certificate thumbprint (valid as of 2024)
+  # GitHub's OIDC provider certificate thumbprint
   # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
-  github_oidc_thumbprint = "6938fd4d98bab03faadb97b34396831e3780aea1"
+  github_oidc_thumbprint = "d367a47959a77b088bec4fe3e7dd3ec9ba733ab5"
 }
 
 # Create AWS OIDC Provider for GitHub Actions
