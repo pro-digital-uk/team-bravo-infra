@@ -16,7 +16,6 @@ module "vpc" {
   #source = "../../modules/vpc"
   #source              = "github.com/cloud-skills-uk/aws-terraform-modules//vpc"
   #source              = "git@github.com:pro-digital-uk/aws-terraform-modules//vpc"
-#####Here
   source = "git::https://github.com/pro-digital-uk/aws-terraform-modules.git//vpc"
 
   name                = local.name
@@ -27,18 +26,6 @@ module "vpc" {
   db_subnet_cidrs     = var.db_subnet_cidrs
   enable_nat_gateway  = var.enable_nat_gateway
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 # module "security_groups" {
 #   source = "../../modules/security-groups"
