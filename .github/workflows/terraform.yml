@@ -32,6 +32,12 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::493245399435:role/github-actions-role
         aws-region: eu-west-2
+        role-session-name: github-actions-${{ github.run_id }}
+
+    - name: Verify AWS Credentials
+      run: |
+        echo "AWS Account ID: $(aws sts get-caller-identity --query Account --output text)"
+        echo "AWS User/Role: $(aws sts get-caller-identity --query Arn --output text)"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
