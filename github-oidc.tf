@@ -102,11 +102,23 @@ data "aws_iam_policy_document" "github_actions_terraform" {
       "iam:GetRole",
       "iam:GetRolePolicy",
       "iam:ListRolePolicies",
+      "iam:ListAttachedRolePolicies",
       "iam:PassRole",
       "iam:GetUser",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
-      "iam:ListPolicyVersions"
+      "iam:ListPolicyVersions",
+      "iam:GetOpenIDConnectProvider",
+      "iam:ListOpenIDConnectProviders"
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "RDSAccess"
+    effect = "Allow"
+    actions = [
+      "rds:*"
     ]
     resources = ["*"]
   }
