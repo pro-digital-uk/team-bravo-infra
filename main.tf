@@ -12,20 +12,20 @@ locals {
 # ---------------------------------------------------------------------------
 # Network: web (public), app (private) and data (isolated) subnets
 # ---------------------------------------------------------------------------
-module "vpc" {
-  #source = "../../modules/vpc"
-  #source              = "github.com/cloud-skills-uk/aws-terraform-modules//vpc"
-  #source              = "git@github.com:pro-digital-uk/aws-terraform-modules//vpc"
-  source = "git::https://github.com/pro-digital-uk/aws-terraform-modules.git//vpc"
+# module "vpc" {
+#   #source = "../../modules/vpc"
+#   #source              = "github.com/cloud-skills-uk/aws-terraform-modules//vpc"
+#   #source              = "git@github.com:pro-digital-uk/aws-terraform-modules//vpc"
+#   #source = "git::https://github.com/pro-digital-uk/aws-terraform-modules.git//vpc"
 
-  name                = local.name
-  cidr_block          = var.vpc_cidr
-  azs                 = local.azs
-  public_subnet_cidrs = var.public_subnet_cidrs
-  app_subnet_cidrs    = var.app_subnet_cidrs
-  db_subnet_cidrs     = var.db_subnet_cidrs
-  enable_nat_gateway  = var.enable_nat_gateway
-}
+#   name                = local.name
+#   cidr_block          = var.vpc_cidr
+#   azs                 = local.azs
+#   public_subnet_cidrs = var.public_subnet_cidrs
+#   app_subnet_cidrs    = var.app_subnet_cidrs
+#   db_subnet_cidrs     = var.db_subnet_cidrs
+#   enable_nat_gateway  = var.enable_nat_gateway
+# }
 
 
 
