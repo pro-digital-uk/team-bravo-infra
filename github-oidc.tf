@@ -1,9 +1,26 @@
-# GitHub Actions OIDC Role for CI/CD
-# Allows GitHub Actions to assume this role via OIDC for secure credential-less authentication
+# GitHub Actions OIDC Identity Provider and Role for CI/CD
+# Allows GitHub Actions to assume a role via OIDC for secure credential-less authentication
 
 locals {
-  github_oidc_provider_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/token.actions.githubusercontent.com"
+  github_oidc_url          = "token.actions.githubusercontent.com"
+  github_oidc_provider_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${local.github_oidc_url}"
   github_repo              = "pro-digital-uk/team-bravo-infra"
+  # GitHub's OIDC provider certificate thumbprint (valid as of 2024)
+  # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+  github_oidc_thumbprint = "6938fd4d98bab03faadb97b34396831e3780aea1"
+}
+
+# Create AWS OIDC Provider for GitHub Actions
+resource "aws_iam_openid_connect_provider" "github" {
+  url             = "https://${local.github_oidc_url}"
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = [local.github_oidc_thumbprint]
+
+  tags = {
+    Name        = "github-oidc-provider"
+    ManagedBy   = "terraform"
+    Environment = "ci-cd"
+  }
 }
 
 # Trust policy for GitHub OIDC
@@ -13,7 +30,7 @@ data "aws_iam_policy_document" "github_actions_trust" {
 
     principals {
       type        = "Federated"
-      identifiers = [local.github_oidc_provider_arn]
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
     }
 
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -98,7 +115,12 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
   policy = data.aws_iam_policy_document.github_actions_terraform.json
 }
 
-# Output the role ARN for reference
+# Outputs
+output "github_oidc_provider_arn" {
+  description = "ARN of the GitHub Actions OIDC provider"
+  value       = aws_iam_openid_connect_provider.github.arn
+}
+
 output "github_actions_role_arn" {
   description = "ARN of the GitHub Actions OIDC role"
   value       = aws_iam_role.github_actions.arn
