@@ -36,12 +36,6 @@ data "aws_iam_policy_document" "github_actions_trust" {
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
     condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
-    }
-
-    condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values   = ["repo:${local.github_repo}:*"]
